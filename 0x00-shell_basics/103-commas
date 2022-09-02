@@ -1,2 +1,2 @@
 #!/bin/bash
-ls -a --indicator-style=slash --format=commas -m -v --group-directories-first --sort=none -X
+ls -a -p -m
