@@ -1,0 +1,2 @@
+#!/bin/bash
+grep -u root /etc/passwd | tail -n +3
