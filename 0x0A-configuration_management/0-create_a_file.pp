@@ -1,3 +1,5 @@
+# Using Puppet, create a file in /tmp
+
 $doc_root = '/tmp/school'
 
 file { $doc_root:
