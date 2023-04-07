@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+#script to install nginx on a server
+
+#update the apt package and install nginx
+apt-get update
+apt-get install nginx
+
+#adjust firewall to allow access to nginx
+#configure to access HTTP profile and listen only on port 80
+ufw allow 'Nginx HTTP'
+
+#return a custom message when querying Nginx at root with curl
+echo "Hello World!" > /var/www/html
+
+#restart nginx
+service nginx restart
+
