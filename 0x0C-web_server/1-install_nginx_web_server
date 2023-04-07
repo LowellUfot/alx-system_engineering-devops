@@ -10,7 +10,7 @@ apt-get -y install nginx
 ufw allow 'Nginx HTTP'
 
 #return a custom message when querying Nginx at root with curl
-echo "Hello World!" > /var/www/html/index.html
+echo "Hello World!" > /var/www/html/index-nginx-debian.html
 
 #restart nginx
 service nginx start
