@@ -14,29 +14,25 @@ cat << EOF > /var/www/html/index.html
 Hello World!
 EOF
 
-#configure nginx to redirect to another page
-cat << EOF > /etc/nginx/sites-available/default
+# Define the redirect URL
+REDIRECT_URL="https://www.youtube.com/watch?v=QH2-TGUlwu4"
+
+#configure nginx to redirect to another page in a new server block
+cat << EOF > /etc/nginx/sites-available/redirect.conf
 server {
 	listen 80 default_server;
 	listen [::]:80 default_server;
 
-    	root /var/www/html;
-    	index index.html;
-	
 	server_name _;
 
-	error_page 404 /404.html;
-
-	location = /404.html {
-		internal;
-	}
-
 	location = /redirect_me {
-		return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;
+		return 301 REDIRECT_URL;
 	}
 }
 EOF
 
-#restart nginx
-service nginx reload
+#create a symbolic link to enable the new configuration file
+ln -s /etc/ngix/sites-available/redirect.conf /etc/nginx/sites-enabled/
 
+#test the nginx configuration and  restart nginx
+nginx -t && service nginx restart
