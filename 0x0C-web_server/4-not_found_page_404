@@ -14,6 +14,12 @@ cat << EOF > /var/www/html/index.html
 Hello World!
 EOF
 
+#create a custom file for 404 return message
+cat << EOF > /var/www/html/404.html
+Ceci n'est pas une page
+EOF
+
+
 #configure nginx to redirect to another page
 cat << EOF > /etc/nginx/sites-available/default
 server {
