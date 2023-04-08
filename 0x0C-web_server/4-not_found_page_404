@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+#script to install nginx on a server
+
+#update the apt package and install nginx
+apt-get update
+apt-get -y install nginx
+
+#adjust firewall to allow access to nginx
+#configure to access HTTP profile and listen only on port 80
+ufw allow 'Nginx HTTP'
+
+#return a custom message when querying Nginx at root with curl
+cat << EOF > /var/www/html/index.html
+Hello World!
+EOF
+
+#configure nginx to redirect to another page
+cat << EOF > /etc/nginx/sites-available/default
+server {
+	listen 80 default_server;
+	listen [::]:80 default_server;
+
+    	root /var/www/html;
+    	index index.html;
+	
+	server_name _;
+
+	error_page 404 /404.html;
+
+	location = /404.html {
+		internal;
+	}
+
+	location = /redirect_me {
+		return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;
+	}
+}
+EOF
+
+#restart nginx
+service nginx reload
+
