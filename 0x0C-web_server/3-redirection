@@ -26,7 +26,7 @@ server {
 	server_name _;
 
 	location = /redirect_me {
-		return 301 REDIRECT_URL;
+		return 301 $REDIRECT_URL;
 	}
 }
 EOF
