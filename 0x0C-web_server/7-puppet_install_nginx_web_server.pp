@@ -33,14 +33,14 @@ file {"$doc_root/index.html":
 }
 
 # Redirect link
-$rdr = "https://www.youtube.com/watch?v=QH2-TGUlwu4"
+$rdr = "https://www.youtube.com/watch?v=QH2-TGUlwu4;"
 
 #Configure redirect in config file
 file_line { 'default':
   ensure => 'present',
   path   => '/etc/nginx/sites-available/default',
   after  => 'listen 80 default_server;',
-  line   => 'rewrite ^/redirect_me $rdr;'
+  line   => 'rewrite ^/redirect_me $rdr'
 }
 
 # Create service to restart nginx
