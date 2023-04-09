@@ -1,26 +1,20 @@
-# Define directory for custom page in a variable
-#$doc_root = "/var/www/html"
+#Install Nginx with Puppet
 
 # Execute apt package update
-#exec { 'apt-get update':
-#  command => '/usr/bin/apt-get update'
-#}
+exec { 'apt-get update':
+  command => '/usr/bin/apt-get update'
+}
 
 # Install nginx
 package { 'nginx':
   ensure  => "installed",
-#  require => Exec['apt-get update']
+  require => Exec['apt-get update']
 }
 
 # Adjust the firewall
-exec { 'firewall':
-  command => 'ufw allow "Nginx HTTP"',
-  require => Package['nginx']
-}
-
-# Create directory for doc_root
-#file { $doc_root:
-#  ensure => "directory"
+#exec { 'firewall':
+#  command => 'ufw allow "Nginx HTTP"',
+#  require => Package['nginx']
 #}
 
 # Custom string
@@ -30,7 +24,7 @@ $str = "Hello World!"
 #file {"$doc_root/index.html":
 file { '/var/www/html/index.html':
   content => $str,
-#  require => File[$doc_root]
+  require => Package['nginx']
 }
 
 # Redirect link
