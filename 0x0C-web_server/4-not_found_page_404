@@ -9,41 +9,13 @@ apt-get -y install nginx
 #configure to access HTTP profile and listen only on port 80
 ufw allow 'Nginx HTTP'
 
-#return a custom message when querying Nginx at root with curl
-cat << EOF > /var/www/html/index.html
-Hello World!
-EOF
-
-#create a custom file for 404 return message
+#create a custom 404 page to return custom message
 cat << EOF > /var/www/html/404.html
 Ceci n'est pas une page
 EOF
 
+# configure nginx to redirect to another page
+sed -i '/listen 80 default_server;/a error_page 404 /404.html; \nlocation /404.html {\ninternal;\n}' /etc/nginx/sites-available/default
 
-#configure nginx to redirect to another page
-cat << EOF > /etc/nginx/sites-available/default
-server {
-	listen 80 default_server;
-	listen [::]:80 default_server;
-
-    	root /var/www/html;
-    	index 404.html;
-	
-	server_name _;
-
-	error_page 404 /404.html;
-
-	location /404.html {
-		root /var/www/html;
-		internal;
-	}
-
-	location /redirect_me {
-		return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;
-	}
-}
-EOF
-
-#restart nginx
-service nginx reload
-
+# restart nginx
+service nginx restart
