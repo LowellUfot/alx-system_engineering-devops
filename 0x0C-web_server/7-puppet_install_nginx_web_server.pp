@@ -40,10 +40,7 @@ file_line { 'default':
   ensure => 'present',
   path   => '/etc/nginx/sites-available/default',
   after  => 'listen 80 default_server;',
-  line   => '
-      location /redirect_me {
-        return 301 $rdr;
-      }'
+  line   => 'rewrite ^/redirect_me $rdr;'
 }
 
 # Create service to restart nginx
