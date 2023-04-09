@@ -35,22 +35,15 @@ file {"$doc_root/index.html":
 # Redirect link
 $rdr = "https://www.youtube.com/watch?v=QH2-TGUlwu4"
 
-# Configure /redirect_me
-file { '/etc/nginx/sites-available/default':
-  ensure => file,
-  content => "
-    server {
-      listen 80;
-      root $doc_root;
-      index index.html;
-
+#Configure redirect in config file
+file_line { 'default':
+  ensure => 'present',
+  path   => '/etc/nginx/sites-available/default',
+  after  => 'listen 80 default_server;',
+  line   => '
       location /redirect_me {
         return 301 $rdr;
-      }
-    }
-  ",
-  require => Package['nginx'],
-  notify  => Service['nginx']
+      }'
 }
 
 # Create service to restart nginx
