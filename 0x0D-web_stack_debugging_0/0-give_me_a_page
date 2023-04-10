@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+# fix for apache server not returning a custom message
+sudo service apache2 restart
