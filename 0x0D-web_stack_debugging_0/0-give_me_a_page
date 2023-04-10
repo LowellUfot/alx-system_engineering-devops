@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 # fix for apache server not returning a custom message
 echo "ServerName localhost" >> /etc/apache2/apache2.conf
-sudo service apache2 restart
+service apache2 start
