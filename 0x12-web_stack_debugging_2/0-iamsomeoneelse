@@ -1,4 +1,11 @@
 #!/usr/bin/env bash
 #script to run whoami command under a user passed as argument
 
-sudo su "${1}" whoami
+if [ "${1}" != "root" ]; then
+	echo -n 'Enter password: '
+	read -s password
+	sudo adduser --disabled-password --gecos "" "${1}"
+	echo "${1}:$password" | sudo chpasswd
+fi
+
+sudo su "${1}" -c 'whoami'
