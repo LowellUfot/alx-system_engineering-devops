@@ -3,7 +3,7 @@
 
 if [ "${1}" != "root" ]; then
 	echo -n 'Enter password: '
-	read -s password
+	read -s -r password
 	sudo adduser --disabled-password --gecos "" "${1}"
 	echo "${1}:$password" | sudo chpasswd
 fi

@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+#script to configure container to run nginx as nginx user
+
+#check if nginx user exist
+if [ id -u nginx > /dev/null 2>&1 ]; then
+	sudo su nginx
+else
+	#create a user "nginx"
+	password=$(openssl rand -base64 12)
+	sudo adduser --disabled-password --gecos "" nginx
+	echo "nginx:$password" | sudo chpasswd
+	
+	sudo su ngix
+fi
+
+#configure nginx to run as nginx user
+sed -i 's/^user www-data;/user nginx;/' /etc/nginx/nginx.conf
+
+#configure nginx to listen on all active IPs or port 8080
+sed -i 's/^# server {/server {\n    listen 8080 default_server;/g' /etc/nginx/sites-available/default
+
+sudo service nginx start
