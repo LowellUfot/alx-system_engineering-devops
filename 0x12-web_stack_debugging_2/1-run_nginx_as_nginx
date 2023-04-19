@@ -1,4 +1,4 @@
-!/usr/bin/env bash
+#!/usr/bin/env bash
 # script to configure container to run nginx as nginx user
 
 # check if nginx user exists
