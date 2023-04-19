@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+!/usr/bin/env bash
 # script to configure container to run nginx as nginx user
 
 # check if nginx user exists
@@ -12,10 +12,13 @@ else
 fi
 
 # configure nginx to run as nginx user
-sudo sed -i 's/^user www-data;/user nginx;/' /etc/nginx/nginx.conf
+sudo sed -i 's/#user www-data;/user nginx;/' /etc/nginx/nginx.conf
 
 # configure nginx to listen on all active IPs on port 8080
-sudo sed -i 's/^# server {/server {\n    listen 8080 default_server;/g' /etc/nginx/sites-available/default
+sudo sed -i 's/80/8080/g' /etc/nginx/sites-available/default
+
+chmod 644 /etc/nginx/nginx.conf
+pkill apache2
 
 # start nginx
-sudo service nginx start
+sudo -u nginx  service nginx start

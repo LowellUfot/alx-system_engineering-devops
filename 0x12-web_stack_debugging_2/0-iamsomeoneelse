@@ -2,8 +2,7 @@
 #script to run whoami command under a user passed as argument
 
 if [ "${1}" != "root" ]; then
-	echo -n 'Enter password: '
-	read -s -r password
+	password=$(openssl rand -base64 12)
 	sudo adduser --disabled-password --gecos "" "${1}"
 	echo "${1}:$password" | sudo chpasswd
 fi
