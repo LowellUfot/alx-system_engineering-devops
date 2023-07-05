@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+#Bash script to display unique string after number 4, 9, and 17
+count=1
+
+while [ $count -le 20 ]
+do
+  case $count in
+    4)
+      echo -e "$count\nBad Luck from China"
+      ;;
+    9)
+      echo -e "$count\nBad Luck from Japan"
+      ;;
+    17)
+      echo -e "$count\nBad Luck from Italy"
+      ;;
+    *)
+      echo $count
+      ;;
+  esac
+
+  count=$((count + 1))
+done
